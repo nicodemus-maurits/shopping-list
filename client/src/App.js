@@ -1,6 +1,9 @@
 import React from "react";
+import { Container } from "reactstrap";
 import AppNavbar from "./components/AppNavbar";
 import ShoppingList from "./components/ShoppingList";
+import ItemModal from "./components/ItemModal";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -8,7 +11,10 @@ function App() {
   return (
     <div className="App">
       <AppNavbar />
-      <ShoppingList />
+      <Container>
+        <ItemModal />
+        <ShoppingList />
+      </Container>
     </div>
   );
 }
