@@ -23,8 +23,9 @@ const ItemModal = props => {
 
   const onSubmit = e => {
     e.preventDefault();
-    const newItem = { id: 10, name };
+    const newItem = { name };
     props.onAddItem(newItem);
+    setName("");
     toggle();
   };
 

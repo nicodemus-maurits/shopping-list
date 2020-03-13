@@ -15,14 +15,14 @@ const ShoppingList = props => {
     <Container>
       <ListGroup>
         <TransitionGroup className="shopping-list">
-          {props.item.items.map(({ id, name }) => (
-            <CSSTransition key={id} timeout={500} classNames="fade">
+          {props.item.items.map(({ _id, name }) => (
+            <CSSTransition key={_id} timeout={500} classNames="fade">
               <ListGroupItem>
                 <Button
                   className="remove-btn"
                   color="danger"
                   size="sm"
-                  onClick={() => props.onDeleteItem(id)}
+                  onClick={() => props.onDeleteItem(_id)}
                 >
                   &times;
                 </Button>
@@ -50,7 +50,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onGetItems: () => dispatch(getItems()),
-    onDeleteItem: id => dispatch(deleteItem(id))
+    onDeleteItem: _id => dispatch(deleteItem(_id))
   };
 };
 
