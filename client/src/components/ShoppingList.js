@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import PropTypes from "prop-types";
 
-const ShoppingList = () => {
+import * as actionTypes from "../store/actions/actionTypes";
+
+const ShoppingList = props => {
   const [items, setItems] = useState({
     items: [
       { id: 1, name: "Eggs" },
@@ -11,6 +15,8 @@ const ShoppingList = () => {
       { id: 4, name: "Water" }
     ]
   });
+
+  useEffect(() => {}, []);
 
   return (
     <Container>
@@ -31,7 +37,7 @@ const ShoppingList = () => {
 
       <ListGroup>
         <TransitionGroup className="shopping-list">
-          {items.items.map(({ id, name }) => (
+          {props.item.items.map(({ id, name }) => (
             <CSSTransition key={id} timeout={500} classNames="fade">
               <ListGroupItem>
                 <Button
@@ -56,4 +62,21 @@ const ShoppingList = () => {
   );
 };
 
-export default ShoppingList;
+ShoppingList.propTypes = {
+  onGetItems: PropTypes.func.isRequired,
+  item: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => {
+  return {
+    item: state.item
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onGetItems: () => dispatch({ type: actionTypes.GET_ITEMS })
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingList);
