@@ -5,7 +5,8 @@ const connectDB = require("./config/db");
 const path = require("path");
 
 const items = require("./routes/api/items");
-
+const users = require("./routes/api/users");
+const auth = require("./routes/api/auth");
 dotenv.config({ path: "./config/config.env" });
 
 connectDB();
@@ -16,6 +17,8 @@ const app = express();
 app.use(express.json());
 
 app.use("/api/v1/items", items);
+app.use("/api/v1/users", users);
+app.use("/api/v1/auth", auth);
 
 // Serve static assets
 if (process.env.NODE_ENV === "production") {
