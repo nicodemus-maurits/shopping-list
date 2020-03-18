@@ -7,9 +7,13 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 
 import itemReducer from "./store/reducers/itemReducer";
+import authReducer from "./store/reducers/authReducer";
+import errorReducer from "./store/reducers/errorReducer";
 
 const rootReducers = combineReducers({
-  item: itemReducer
+  item: itemReducer,
+  auth: authReducer,
+  error: errorReducer
 });
 
 const composeEnhancers =

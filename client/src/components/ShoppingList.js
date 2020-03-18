@@ -18,14 +18,17 @@ const ShoppingList = props => {
           {props.item.items.map(({ _id, name }) => (
             <CSSTransition key={_id} timeout={500} classNames="fade">
               <ListGroupItem>
-                <Button
-                  className="remove-btn"
-                  color="danger"
-                  size="sm"
-                  onClick={() => props.onDeleteItem(_id)}
-                >
-                  &times;
-                </Button>
+                {props.isAuthenticated && (
+                  <Button
+                    className="remove-btn"
+                    color="danger"
+                    size="sm"
+                    onClick={() => props.onDeleteItem(_id)}
+                  >
+                    &times;
+                  </Button>
+                )}
+
                 {name}
               </ListGroupItem>
             </CSSTransition>
@@ -38,12 +41,14 @@ const ShoppingList = props => {
 
 ShoppingList.propTypes = {
   onGetItems: PropTypes.func.isRequired,
-  item: PropTypes.object.isRequired
+  item: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = state => {
   return {
-    item: state.item
+    item: state.item,
+    isAuthenticated: state.auth.isAuthenticated
   };
 };
 
