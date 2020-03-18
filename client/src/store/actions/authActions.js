@@ -48,6 +48,29 @@ export const register = ({ name, email, password }) => async dispatch => {
   }
 };
 
+// Login user
+export const login = ({ email, password }) => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  const body = JSON.stringify({ email, password });
+
+  try {
+    const loggedinUser = await axios.post("/api/v1/auth", body, config);
+    dispatch({
+      type: actionTypes.LOGIN_SUCCESS,
+      payload: loggedinUser.data
+    });
+  } catch (error) {
+    dispatch(
+      returnErrors(error.response.data, error.response.status, "LOGIN_FAIL")
+    );
+    dispatch({ type: actionTypes.LOGIN_FAIL });
+  }
+};
+
 // Logout user
 export const logout = () => {
   return {
