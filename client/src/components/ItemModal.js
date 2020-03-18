@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   Button,
   Modal,
@@ -31,9 +32,13 @@ const ItemModal = props => {
 
   return (
     <div>
-      <Button color="dark" style={{ marginBottom: "2rem" }} onClick={toggle}>
-        Add Item
-      </Button>
+      {props.isAuthenticated ? (
+        <Button color="dark" style={{ marginBottom: "2rem" }} onClick={toggle}>
+          Add Item
+        </Button>
+      ) : (
+        <h4 className="mb-3 ml-4">Please login to manage items</h4>
+      )}
 
       <Modal isOpen={isOpen} toggle={toggle}>
         <ModalHeader toggle={toggle}>Add To Shopping List</ModalHeader>
@@ -60,10 +65,20 @@ const ItemModal = props => {
   );
 };
 
+ItemModal.propTypes = {
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     onAddItem: newItem => dispatch(addItem(newItem))
   };
 };
 
-export default connect(null, mapDispatchToProps)(ItemModal);
+export default connect(mapStateToProps, mapDispatchToProps)(ItemModal);
