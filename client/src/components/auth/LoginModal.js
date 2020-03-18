@@ -51,7 +51,6 @@ const LoginModal = props => {
     const user = { email, password };
 
     props.onLogin(user);
-    toggle();
   };
 
   return (
